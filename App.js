@@ -1,21 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, PickerIOSComponent } from 'react-native';
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={[styles.container, styles.pink]}>
+        <Text>Hello World!</Text>
+      </View>
+    </SafeAreaView>
+  )
+};
 
 const styles = StyleSheet.create({
+  pink: {
+    backgroundColor: 'pink',
+  },
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    backgroundColor: 'red',
+    borderColor: 'blue',
+    borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
+    flex: 1
   },
 });
+
+export default App;
