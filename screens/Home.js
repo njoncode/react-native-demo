@@ -44,6 +44,8 @@ const COLOR_PALETTES = [
 const Home = ({ navigation }) => {
     const [colorPalettes, setcolorPalettes] = React.useState([]);
 
+    const [isRefreshing, setIsRefreshing] = React.useState(false);
+
     const fetchColorPalettes = React.useCallback(async () => {
         const result = await fetch(
             'https://color-palette-api.kadikraman.now.sh/palettes',
@@ -59,6 +61,14 @@ const Home = ({ navigation }) => {
         fetchColorPalettes();
     }, []);
 
+    const handleRefresh = useCallback(async () => {
+        setIsRefreshing(true);
+        await fetchColorPalettes();
+        setTimeout(() => {
+            setIsRefreshing(false);
+        }, 1000);
+    }, []);
+
     return (
         <FlatList
             style={styles.list}
@@ -72,6 +82,8 @@ const Home = ({ navigation }) => {
                     colorPalette={item}
                 />
             )}
+            refreshing={isRefreshing}
+            onRefresh={handleRefresh}
         />
     );
 };
