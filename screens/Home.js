@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import PalettePreview from '../components/PalettePreview';
 
 const SOLARIZED = [
@@ -84,6 +84,15 @@ const Home = ({ navigation }) => {
             )}
             refreshing={isRefreshing}
             onRefresh={handleRefresh}
+            ListHeaderComponent={
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('ColorPaletteModal');
+                    }}
+                >
+                    <Text>Launch Modal</Text>
+                </TouchableOpacity>
+            }
         />
     );
 };
