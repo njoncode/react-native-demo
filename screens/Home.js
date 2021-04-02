@@ -41,7 +41,10 @@ const COLOR_PALETTES = [
     { paletteName: 'Rainbow', colors: RAINBOW },
 ];
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+    const newColorPalette = route.paramas
+        ? route.params.newColorPalette
+        : undefined;
     const [colorPalettes, setcolorPalettes] = React.useState([]);
 
     const [isRefreshing, setIsRefreshing] = React.useState(false);
@@ -69,6 +72,12 @@ const Home = ({ navigation }) => {
         }, 1000);
     }, []);
 
+    React.useEffect(() => {
+        if (newColorPalette) {
+            setColorPalette((palettes) => [newColorPalette, ...palettes]);
+        }
+    }, [newColorPalette]);
+
     return (
         <FlatList
             style={styles.list}
@@ -90,7 +99,7 @@ const Home = ({ navigation }) => {
                         navigation.navigate('ColorPaletteModal');
                     }}
                 >
-                    <Text>Launch Modal</Text>
+                    <Text style={styles.buttonText}>Add a color scheme</Text>
                 </TouchableOpacity>
             }
         />
@@ -101,6 +110,12 @@ const styles = StyleSheet.create({
     list: {
         padding: 10,
         backgroundColor: 'white',
+    },
+    buttonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'teal',
+        marginBottom: 10,
     },
 });
 

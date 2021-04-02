@@ -6,14 +6,22 @@ import {
     StyleSheet,
     TouchableOpacity,
     Alert,
+    Switch,
 } from 'react-native';
 
-const ColorPaletteModal = () => {
+const ColorPaletteModal = ({ navigation }) => {
     const [name, setName] = React.useState('');
 
     const handleSubmit = useCallback(() => {
         if (!name) {
             Alert.alert('Please enter a palette name');
+        } else {
+            const newColorPalette = {
+                paletteName: name,
+                name: [],
+            };
+            // navigation.goBack();
+            navigation.navigate('Home', { newColorPalette });
         }
     }, [name]);
 
@@ -26,6 +34,11 @@ const ColorPaletteModal = () => {
                 onChangeText={setName}
                 placeholder="Palette Name"
             />
+            <View style={styles.color}>
+                <Text>Color Name</Text>
+                <Switch vale={true} onValueChange={() => { }} />
+            </View>
+
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
@@ -59,6 +72,14 @@ const styles = StyleSheet.create({
     },
     name: {
         marginBottom: 10,
+    },
+    color: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: 'grey',
     },
 });
 
